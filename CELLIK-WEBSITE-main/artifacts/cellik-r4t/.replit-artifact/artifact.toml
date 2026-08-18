@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "CELLIK R4T"
+version = "1.0.0"
+id = "artifacts/cellik-r4t"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24389
+
+[services.development]
+run = "pnpm --filter @workspace/cellik-r4t run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/cellik-r4t", "run", "build" ]
+publicDir = "artifacts/cellik-r4t/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24389"
+BASE_PATH = "/"
